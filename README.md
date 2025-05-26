@@ -29,7 +29,7 @@ This will start the dev server at http://localhost:5173
 
 The frontend is organized to cleanly separate UI components (src/components), data fetching logic (src/assets), and shared types (src/types.ts), making the codebase easier to read, scale, and maintain.
 
-The backend is organized so that server ops (main.go) are separated from data (), making it easier to switch from reading static data to possibly pulling from a database.
+The backend is organized so that server ops (main.go) are separated from data (data/users.json), making it easier to switch from reading static data to eventually pulling from a database.
 
 ## Technical Choices
 

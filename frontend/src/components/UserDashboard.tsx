@@ -47,7 +47,7 @@ export default function UserDashboard() {
 
   return (
     <div className="p-6 bg-white rounded-2xl shadow-md max-w-7xl mx-auto">
-      <h1 className="text-2xl font-semibold mb-4">User Security Dashboard</h1>
+      <h1 className="text-2xl font-semibold mb-4">User Account Dashboard</h1>
       <ReloadStatus onReload={doReload} updatedAt={updatedAt} />
   
       {error && <p className="text-red-500 mb-4">Error: {error}</p>}
