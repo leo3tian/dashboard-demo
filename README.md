@@ -2,6 +2,29 @@
 
 A full-stack application that displays a list of users. 
 
+
+## Steps to Run
+
+1. Clone the repo (https://github.com/leo3tian/dashboard-demo)
+
+2. Run backend at http://localhost:8080
+```bash
+cd backend
+go run main.go
+```
+You can verify the backend is working by checking the /api/users endpoint here: http://localhost:8080/api/users
+
+3. Run the frontend using vite
+In a separate terminal:
+```bash
+cd frontend
+npm install
+npm run dev
+```
+This will start the dev server at http://localhost:5173
+
+4. Visit the app at http://localhost:5173
+
 ## Structure
 
 The frontend is organized to cleanly separate UI components (src/components), data fetching logic (src/assets), and shared types (src/types.ts), making the codebase easier to read, scale, and maintain.
@@ -37,25 +60,6 @@ type User struct {
 
 - Live timestamp display: To make sure the client knows how recent their data is, the dashboard shows when the data was last updated and includes a manual reload button that refreshes the table. 
 
-## Steps to Run
+- User warnings: Users that fit a predetermined critera are highlighted and their warnings are labelled (e.g. old password, inactivity)
 
-1. Clone the repo (https://github.com/leo3tian/dashboard-demo)
-
-2. Run backend at http://localhost:8080
-```bash
-cd backend
-go run main.go
-```
-You can verify the backend is working by checking the /api/users endpoint here: http://localhost:8080/api/users
-
-3. Run the frontend using vite
-In a separate terminal:
-```bash
-cd frontend
-npm install
-npm run dev
-```
-This will start the dev server at http://localhost:5173
-
-4. Visit the app at http://localhost:5173
 
