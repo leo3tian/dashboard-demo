@@ -3,60 +3,55 @@ package main
 import (
 	"encoding/json"
 	"net/http"
+	"os"
 	"time"
 )
 
 type User struct {
-	Name                   string `json:"name"`
-	CreateDate             string `json:"created"`
-	PasswordChangedDate    string `json:"passwordChanged"`
+	Name                    string `json:"name"`
+	CreateDate              string `json:"created"`
+	PasswordChangedDate     string `json:"passwordChanged"`
 	DaysSincePasswordChange int    `json:"daysSincePasswordChange"`
-	LastAccessDate         string `json:"lastAccess"`
-	DaysSinceLastAccess    int    `json:"daysSinceLastAccess"`
-	MFAEnabled             bool   `json:"mfaEnabled"`
+	LastAccessDate          string `json:"lastAccess"`
+	DaysSinceLastAccess     int    `json:"daysSinceLastAccess"`
+	MFAEnabled              bool   `json:"mfaEnabled"`
 }
 
-func daysSince(dateStr string) int {
-	parsed, err := time.Parse("Jan 2 2006", dateStr)
+func loadUsersFromFile(path string) ([]User, error) {
+	data, err := os.ReadFile(path)
 	if err != nil {
-		return -1 // or handle error
+		return nil, err
 	}
-	return int(time.Since(parsed).Hours() / 24)
+
+	var users []User
+	if err := json.Unmarshal(data, &users); err != nil {
+		return nil, err
+	}
+	return users, nil
 }
 
 func usersHandler(w http.ResponseWriter, r *http.Request) {
-	users := []User{
-		{
-			Name:                "Foo Bar1",
-			CreateDate:          "Oct 1 2020",
-			PasswordChangedDate: "Oct 1 2021",
-			LastAccessDate:      "Jan 4 2025",
-			MFAEnabled:          true,
-		},
-		{
-			Name:                "Foo1 Bar1",
-			CreateDate:          "Sep 20 2019",
-			PasswordChangedDate: "Sep 22 2019",
-			LastAccessDate:      "Feb 8 2025",
-			MFAEnabled:          false,
-		},
-		// Add more if needed
+	users, err := loadUsersFromFile("data/users.json")
+	if err != nil {
+		http.Error(w, "Failed to load users", http.StatusInternalServerError)
+		return
 	}
 
-	today := time.Now()
-
 	for i := range users {
-		users[i].DaysSincePasswordChange = int(today.Sub(parse(users[i].PasswordChangedDate)).Hours() / 24)
-		users[i].DaysSinceLastAccess = int(today.Sub(parse(users[i].LastAccessDate)).Hours() / 24)
+		users[i].DaysSincePasswordChange = daysSince(users[i].PasswordChangedDate)
+		users[i].DaysSinceLastAccess = daysSince(users[i].LastAccessDate)
 	}
 
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(users)
 }
 
-func parse(dateStr string) time.Time {
-	t, _ := time.Parse("Jan 2 2006", dateStr)
-	return t
+func daysSince(dateStr string) int {
+	parsed, err := time.Parse("Jan 2 2006", dateStr)
+	if err != nil {
+		return -1
+	}
+	return int(time.Since(parsed).Hours() / 24)
 }
 
 func main() {

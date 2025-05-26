@@ -1,0 +1,45 @@
+[
+    {
+        "name": "John Doe",
+        "created": "Sep 1 2024",
+        "passwordChanged": "Sep 1 2024",
+        "lastAccess": "May 25 2025",
+        "mfaEnabled": true
+    },
+    {
+        "name": "George Washington",
+        "created": "July 4 1776",
+        "passwordChanged": "Dec 1 2024",
+        "lastAccess": "May 1 2025",
+        "mfaEnabled": true
+    },
+    {
+        "name": "Leo Tian",
+        "created": "Sep 1 2024",
+        "passwordChanged": "Nov 1 2024",
+        "lastAccess": "Apr 1 2025",
+        "mfaEnabled": true
+    },
+    {
+        "name": "Obi-Wan Kenobi",
+        "created": "Sep 1 2024",
+        "passwordChanged": "Sep 1 2024",
+        "lastAccess": "May 1 2025",
+        "mfaEnabled": true
+    },
+    {
+        "name": "Foo Bar1",
+        "created": "Oct 1 2019",
+        "passwordChanged": "Oct 1 2019",
+        "lastAccess": "May 24 2025",
+        "mfaEnabled": true
+    },
+    {
+        "name": "Foo1 Bar1",
+        "created": "Sep 1 2019",
+        "passwordChanged": "Sep 1 2019",
+        "lastAccess": "Feb 8 2025",
+        "mfaEnabled": false
+    }
+  ]
+  
