@@ -1,7 +1,10 @@
 # User Dashboard
 
-A full-stack application that displays a list of users, intended for administrators to view users at-a-glance and quickly identify users with security concerns.
+A full-stack application that displays a list of users, intended for administrators to view users at-a-glance and quickly identify users who are inactive or have security concerns.
 
+Highlights users who:
+- Haven't changed their password in over a year
+- Haven't accessed their account in over 90 days
 
 ## Steps to Run
 
@@ -27,9 +30,11 @@ This will start the dev server at http://localhost:5173
 
 ## Structure
 
-The frontend is organized to cleanly separate UI components (src/components), data fetching logic (src/assets), and shared types (src/types.ts), making the codebase easier to read, scale, and maintain.
+The project is separated into a backend that provides user data, and a frontend that organizes that user data into a dashboard. 
 
-The backend is organized so that server ops (main.go) are separated from data (data/users.json), making it easier to switch from reading static data to eventually pulling from a database.
+The frontend is organized to cleanly separate UI components (src/components), data fetching logic (src/assets), and the user type (src/types.ts), making the codebase easier to read, scale, and maintain.
+
+The backend is organized so that server ops (main.go) are separated from the user type (user.go). Data is stored in its own json file (data/users.json), making it easier to switch from reading static data to eventually pulling from a database.
 
 ## Technical Choices
 
