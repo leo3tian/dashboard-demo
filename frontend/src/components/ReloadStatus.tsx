@@ -1,22 +1,26 @@
 import { useEffect, useState } from 'react';
 
-type Props = {
+type ReloadStatusProps = {
   onReload: () => void;
   updatedAt: Date | null;
 };
 
-export default function ReloadStatus({ onReload, updatedAt }: Props) {
+// Component to display reload status and last update time
+// Takes in a callback for reloading data (() => void) and the last updated time (Date | null)
+export default function ReloadStatus({ onReload, updatedAt }: ReloadStatusProps) {
   const [now, setNow] = useState(new Date());
 
+  // Updates the current time every 10 seconds
   useEffect(() => {
-    const interval = setInterval(() => setNow(new Date()), 1000);
+    const interval = setInterval(() => setNow(new Date()), 10000);
     return () => clearInterval(interval);
   }, []);
 
+  // Helper function to format time since last update
   function timeSince(date: Date): string {
     const seconds = Math.ceil((now.getTime() - date.getTime()) / 1000);
     if (seconds < 60) return "< 1 minute ago";
-    return seconds / 60 + " minutes ago";
+    return Math.floor(seconds / 60) + " minutes ago";
   }
 
   return (
