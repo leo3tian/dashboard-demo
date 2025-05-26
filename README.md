@@ -34,11 +34,11 @@ The project is separated into a backend that provides user data, and a frontend 
 
 The frontend is organized to cleanly separate UI components (src/components), data fetching logic (src/assets), and the user type (src/types.ts), making the codebase easier to read, scale, and maintain.
 
-The backend is organized so that server ops (main.go) are separated from the user type (user.go). Data is stored in its own json file (data/users.json), making it easier to switch from reading static data to eventually pulling from a database.
+The backend is organized so that server logic (main.go) is separated from the user type (user.go). Data is stored in its own json file (data/users.json), making it easier to switch from reading static data to eventually pulling from a database.
 
 ## Technical Choices
 
-- End-to-end typing: One of the project constraints that I wanted to take advantage of is that both TypeScript (frontend) and Go (backend) are statically typed - this let me define a single User type, making data consistently structured across the system.
+- End-to-end typing: One of the project constraints that I wanted to take advantage of is that both TypeScript (frontend) and Go (backend) are statically typed - this let me define a single User type, making data consistently structured across the stack.
 ```ts
 export type User = {
   name: string;
@@ -65,6 +65,6 @@ type User struct {
 
 - Live timestamp display: To make sure the client knows how recent their data is, the dashboard shows when the data was last updated and includes a manual reload button that refreshes the table. 
 
-- User warnings: Users that fit a predetermined critera are highlighted and their warnings are labelled (e.g. old password, inactivity). This lets admins quickly find out which users are at risk.
+- User warnings: Users that fit a predetermined critera are highlighted and their warnings are labelled (e.g. old password, inactivity). This lets admins quickly find out which users are at risk. I made these warnings as modular as possible by putting warning-labelling logic in its own method, so that in the future we can create custom warnings or change warming requirements.
 
 
