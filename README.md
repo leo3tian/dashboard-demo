@@ -1,6 +1,6 @@
 # User Dashboard
 
-A full-stack application that displays a list of users. 
+A full-stack application that displays a list of users, intended for administrators to view users at-a-glance and quickly identify users with security concerns.
 
 
 ## Steps to Run
@@ -60,6 +60,6 @@ type User struct {
 
 - Live timestamp display: To make sure the client knows how recent their data is, the dashboard shows when the data was last updated and includes a manual reload button that refreshes the table. 
 
-- User warnings: Users that fit a predetermined critera are highlighted and their warnings are labelled (e.g. old password, inactivity)
+- User warnings: Users that fit a predetermined critera are highlighted and their warnings are labelled (e.g. old password, inactivity). This lets admins quickly find out which users are at risk.
 
 

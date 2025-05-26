@@ -7,16 +7,7 @@ import (
 	"time"
 )
 
-type User struct {
-	Name                    string `json:"name"`
-	CreateDate              string `json:"created"`
-	PasswordChangedDate     string `json:"passwordChanged"`
-	DaysSincePasswordChange int    `json:"daysSincePasswordChange"`
-	LastAccessDate          string `json:"lastAccess"`
-	DaysSinceLastAccess     int    `json:"daysSinceLastAccess"`
-	MFAEnabled              bool   `json:"mfaEnabled"`
-}
-
+// Reads user data from a JSON file and returns a slice of User structs
 func loadUsersFromFile(path string) ([]User, error) {
 	data, err := os.ReadFile(path)
 	if err != nil {
@@ -30,6 +21,8 @@ func loadUsersFromFile(path string) ([]User, error) {
 	return users, nil
 }
 
+// Handles the /api/users endpoint and returns user data, adding on additional fields
+// for days since password change and last access
 func usersHandler(w http.ResponseWriter, r *http.Request) {
 	users, err := loadUsersFromFile("data/users.json")
 	if err != nil {
@@ -46,6 +39,7 @@ func usersHandler(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(users)
 }
 
+// Calculates the number of days since a given date string in "Jan 2 2006" format
 func daysSince(dateStr string) int {
 	parsed, err := time.Parse("Jan 2 2006", dateStr)
 	if err != nil {
